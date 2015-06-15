@@ -1,0 +1,9 @@
+2
+osc SimpleOscillator
+env AmpEnvelope
+2
+osc env
+env output
+0
+1
+osc gain 1.5
