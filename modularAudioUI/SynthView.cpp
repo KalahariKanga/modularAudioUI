@@ -40,6 +40,13 @@ void SynthView::addComponent(std::string name, std::string type)
 
 void SynthView::update()
 {
+	image.create(640, 480);
+	sf::Event event;
+	while (window.pollEvent(event))
+	{
+		for (auto c : components)
+			(c.second)->onEvent(&event);
+	}
 	for (auto c : components)
 		(c.second)->update();
 	texture.loadFromImage(image);

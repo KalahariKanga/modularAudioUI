@@ -11,5 +11,7 @@ public:
 
 	std::string componentName;
 	std::string name;
+
+	void onEvent(sf::Event* ev);
 };
 
