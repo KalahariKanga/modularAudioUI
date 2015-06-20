@@ -11,10 +11,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	sv.addComponent("osc", "SimpleOscillator");
 	sv.print();
 
+	while (1)
+		sv.update();
 
-
-
-	system("pause");
 	return 0;
 }
 

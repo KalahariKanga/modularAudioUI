@@ -9,7 +9,12 @@ public:
 	~SynthView();
 	bool loadPatch(std::string fname);
 	void addComponent(std::string name, std::string type);
+	sf::RenderWindow window;
+	sf::Sprite sprite;
+	sf::Texture texture;
+	sf::Image image;
 
+	void update();
 	void print();
 };
 

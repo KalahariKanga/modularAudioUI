@@ -1,6 +1,8 @@
 #pragma once
 #include "Synth.h"
 #include <iostream>
+#include "SFML/graphics.hpp"
+#include "Draw.h"
 class ParameterView
 {
 public:

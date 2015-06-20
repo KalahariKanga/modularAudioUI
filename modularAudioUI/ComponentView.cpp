@@ -1,7 +1,7 @@
 #include "ComponentView.h"
 
 
-ComponentView::ComponentView(std::string Name) : name(Name)
+ComponentView::ComponentView(std::string Name, sf::Image* i) : name(Name), image(i)
 {
 }
 
@@ -15,7 +15,11 @@ void ComponentView::addParameter(std::string name)
 	parameters[name] = new ParameterView(name);
 }
 
-
+void ComponentView::update()
+{
+	Draw::setColour(sf::Color::Red);
+	Draw::rectangle(image, 32, 32, 64, 48);
+}
 
 void ComponentView::print()
 {
