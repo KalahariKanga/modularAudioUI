@@ -1,5 +1,6 @@
 #pragma once
 #include "ParameterView.h"
+#include "LinkView.h"
 class ComponentView
 {
 	std::map<std::string, ParameterView*> parameters;
@@ -7,6 +8,7 @@ class ComponentView
 	int x, y, w, h;
 	int mousexoffset = 0, mouseyoffset = 0;
 	bool clicked = 0;
+
 public:
 	ComponentView(std::string name, sf::Image* i);
 	~ComponentView();

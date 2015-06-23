@@ -1,9 +1,15 @@
 #pragma once
+#include "bass.h"
 #include "ComponentView.h"
+#include <thread>
 class SynthView
 {
 	Synth* s;
+	std::thread* audioThread;
 	std::map<std::string, ComponentView*> components;
+	HSTREAM stream;
+
+	void addComponentView(std::string name);
 public:
 	SynthView();
 	~SynthView();
@@ -16,5 +22,8 @@ public:
 
 	void update();
 	void print();
+	void audioUpdate();
+
+	void playNoteDuration(Note note, float seconds);
 };
 

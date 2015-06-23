@@ -3,8 +3,8 @@
 
 ComponentView::ComponentView(std::string Name, sf::Image* i) : name(Name), image(i)
 {
-	x = 200;
-	y = 200;
+	x = rand() % 640;
+	y = rand() % 480;
 	w = 48;
 	h = 64;
 }
