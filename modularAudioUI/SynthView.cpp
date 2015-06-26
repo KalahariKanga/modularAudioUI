@@ -30,16 +30,32 @@ void SynthView::addComponentView(std::string name)
 		components[name]->addParameter(str);
 }
 
+void SynthView::addAudioLinkView(std::string from, std::string to)
+{
+	links.push_back(new LinkView(&image, components.at(from), components.at(to)));
+}
+
 bool SynthView::loadPatch(std::string fname)
 {
 	
 	s->loadPatch(fname);
 	//return -1;
+
 	auto list = s->getComponentList();
 	for (auto str : list)
 	{
 		//add component
+		std::cout << str << "\n";
 		addComponentView(str);
+	}
+	//add links
+	for (auto str : list)
+	{
+		Component* c = s->getComponent(str);
+		AudioComponent* a = dynamic_cast<AudioComponent*>(c);
+		if (a)
+			for (auto l : a->ins)
+				addAudioLinkView(l->name, a->name);
 	}
 	return 0;
 }
@@ -50,8 +66,15 @@ void SynthView::addComponent(std::string name, std::string type)
 	addComponentView(name);
 }
 
+void SynthView::addAudioLink(std::string from, std::string to)
+{
+	s->linkAudio(from, to);
+	addAudioLinkView(from, to);
+}
+
 void SynthView::update()
 {
+	//audioUpdate();
 	image.create(640, 480);
 	sf::Event event;
 	while (window.pollEvent(event))
@@ -61,6 +84,8 @@ void SynthView::update()
 	}
 	for (auto c : components)
 		(c.second)->update();
+	for (auto c : links)
+		c->update();
 	texture.loadFromImage(image);
 	sprite.setTexture(texture);
 	window.draw(sprite);

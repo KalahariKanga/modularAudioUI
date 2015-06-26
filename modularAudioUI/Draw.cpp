@@ -1,5 +1,5 @@
 #include "Draw.h"
-
+#include <iostream>
 sf::Color Draw::colour = sf::Color::White;
 Draw::Draw()
 {
@@ -66,7 +66,7 @@ void Draw::line(sf::Image* i, int x1, int y1, int x2, int y2)
 			xe = x1;
 		}
 		point(i, x, y);
-		for (int c = 0; x < xe; i++)
+		for (int c = 0; x < xe; c++)
 		{
 			x = x + 1;
 			if (px < 0)
@@ -103,7 +103,7 @@ void Draw::line(sf::Image* i, int x1, int y1, int x2, int y2)
 			ye = y1;
 		}
 		point(i, x, y);
-		for (int c = 0; y < ye; i++)
+		for (int c = 0; y < ye; c++)
 		{
 			y = y + 1;
 			if (py <= 0)

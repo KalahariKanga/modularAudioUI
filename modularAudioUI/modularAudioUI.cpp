@@ -8,7 +8,7 @@
 int _tmain(int argc, _TCHAR* argv[])
 {
 	SynthView sv;
-	sv.loadPatch("sine.patch");
+	sv.loadPatch("skies.patch");
 	sv.print();
 
 	while (1)
