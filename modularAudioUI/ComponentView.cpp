@@ -1,7 +1,7 @@
 #include "ComponentView.h"
 
 
-ComponentView::ComponentView(std::string Name, sf::Image* i) : name(Name), image(i)
+ComponentView::ComponentView(std::string Name, sf::RenderWindow* win) : name(Name), window(win)
 {
 	x = rand() % 640;
 	y = rand() % 480;
@@ -50,8 +50,13 @@ void ComponentView::onEvent(sf::Event* ev)
 
 void ComponentView::update()
 {
-	Draw::setColour(sf::Color::Red);
-	Draw::rectangle(image, x, y, w, h);
+
+	rectangle.setSize(sf::Vector2f(w, h));
+	rectangle.setOutlineColor(sf::Color::Red);
+	rectangle.setOutlineThickness(5);
+	rectangle.setPosition(x, y);
+
+	window->draw(rectangle);
 }
 
 void ComponentView::print()

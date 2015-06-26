@@ -1,7 +1,7 @@
 #include "LinkView.h"
 
 
-LinkView::LinkView(sf::Image* i, ComponentView* a, ComponentView* b) : image(i)
+LinkView::LinkView(sf::RenderWindow* w, ComponentView* a, ComponentView* b) : window(w)
 {
 	from = a;
 	to = b;
@@ -14,5 +14,9 @@ LinkView::~LinkView()
 
 void LinkView::update()
 {
-	Draw::line(image, from->x, from->y, to->x, to->y);
+	line.setPrimitiveType(sf::PrimitiveType::Lines);
+	line.clear();
+	line.append(sf::Vertex(sf::Vector2f(from->x, from->y)));
+	line.append(sf::Vertex(sf::Vector2f(to->x, to->y)));
+	window->draw(line);
 }

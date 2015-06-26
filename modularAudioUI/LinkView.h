@@ -5,13 +5,14 @@
 class LinkView 
 {
 
-	sf::Image* image;
+	sf::RenderWindow* window;
 
 public:
-	LinkView(sf::Image* i, ComponentView* a, ComponentView* b);
+	LinkView(sf::RenderWindow* w, ComponentView* a, ComponentView* b);
 	~LinkView();
 	//std::string from, to;
 	ComponentView *from, *to;
 	void update();
+	sf::VertexArray line;
 };
 

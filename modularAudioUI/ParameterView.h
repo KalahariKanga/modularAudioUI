@@ -3,6 +3,7 @@
 #include <iostream>
 #include "SFML/graphics.hpp"
 #include "Draw.h"
+#define AUDIO
 class ParameterView
 {
 public:

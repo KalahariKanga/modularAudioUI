@@ -5,7 +5,9 @@
 #include <thread>
 class SynthView 
 {
+#ifdef AUDIO
 	Synth* s;
+#endif
 	std::thread* audioThread;
 	std::map<std::string, ComponentView*> components;
 	std::vector<LinkView*> links;
@@ -20,9 +22,9 @@ public:
 	void addComponent(std::string name, std::string type);
 	void addAudioLink(std::string from, std::string to);
 	sf::RenderWindow window;
-	sf::Sprite sprite;
+	/*sf::Sprite sprite;
 	sf::Texture texture;
-	sf::Image image;
+	sf::Image image;*/
 
 	void update();
 	void print();
