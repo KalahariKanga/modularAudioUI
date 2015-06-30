@@ -1,17 +1,31 @@
 #include "ComponentView.h"
 
-
+//sf::Font ComponentView::font;
 ComponentView::ComponentView(std::string Name, sf::RenderWindow* win) : name(Name), window(win)
 {
 	x = rand() % 640;
 	y = rand() % 480;
 	w = 48;
 	h = 64;
+	
+	font.loadFromFile("arial.ttf");
+	nameText = new sf::Text();
+	nameText->setFont(font);
+	nameText->setColor(sf::Color::Blue);
+	nameText->setCharacterSize(12);
+
+	rectangle = new sf::RectangleShape();
+	rectangle->setOutlineColor(sf::Color::Red);
+	rectangle->setOutlineThickness(1);
 }
 
 
 ComponentView::~ComponentView()
 {
+	delete nameText;
+	delete rectangle;
+	for (auto p : parameters)
+		delete (p.second);
 }
 
 void ComponentView::addParameter(std::string name)
@@ -50,13 +64,14 @@ void ComponentView::onEvent(sf::Event* ev)
 
 void ComponentView::update()
 {
+	rectangle->setSize(sf::Vector2f(w, h));
+	rectangle->setPosition(x, y);
 
-	rectangle.setSize(sf::Vector2f(w, h));
-	rectangle.setOutlineColor(sf::Color::Red);
-	rectangle.setOutlineThickness(5);
-	rectangle.setPosition(x, y);
-
-	window->draw(rectangle);
+	nameText->setString(name);
+	nameText->setPosition(sf::Vector2f(x, y));
+	
+	window->draw(*rectangle);
+	window->draw(*nameText);
 }
 
 void ComponentView::print()

@@ -4,6 +4,8 @@
 SynthView::SynthView()
 {
 	window.create(sf::VideoMode(640, 480), "UI");
+	/*if (!ComponentView::font.loadFromFile("arial.ttf"))
+		std::cout << "Font loading error\n";*/
 #ifdef AUDIO
 	s = new Synth();
 	
@@ -21,11 +23,21 @@ SynthView::SynthView()
 
 SynthView::~SynthView()
 {
+	BASS_StreamFree(stream);
+	BASS_Stop();
+	BASS_Free();
+	for (auto c : links)
+		delete c;
+	for (auto c : components)
+		delete c.second;
+	delete s;
+	delete audioThread;
 }
 
 void SynthView::addComponentView(std::string name)
 {
 	components[name] = new ComponentView(name, &window);
+
 	//populate parameters
 #ifdef AUDIO
 	auto list = s->getComponent(name)->getParameterList();
@@ -91,6 +103,9 @@ void SynthView::update()
 	{
 		for (auto c : components)
 			(c.second)->onEvent(&event);
+		if (event.type == sf::Event::KeyPressed)
+			if (event.key.code == sf::Keyboard::Space)
+				addComponent("new", "LFO");
 	}
 	for (auto c : components)
 		(c.second)->update();

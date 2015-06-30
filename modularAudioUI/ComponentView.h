@@ -24,6 +24,9 @@ public:
 	void print();
 
 
-	sf::RectangleShape rectangle;
+	sf::RectangleShape* rectangle;
+	sf::Text* nameText;
+	sf::Font font;
+	//static sf::Font font;
 };
 
