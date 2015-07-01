@@ -18,6 +18,8 @@ SynthView::SynthView()
 
 	audioThread = new std::thread(&SynthView::audioUpdate, this);
 #endif
+
+	
 }
 
 
@@ -80,6 +82,8 @@ bool SynthView::loadPatch(std::string fname)
 
 void SynthView::addComponent(std::string name, std::string type)
 {
+	if (type == "" || name == "")
+		return;
 #ifdef AUDIO
 	s->addComponent(name, type);
 #endif
@@ -105,7 +109,12 @@ void SynthView::update()
 			(c.second)->onEvent(&event);
 		if (event.type == sf::Event::KeyPressed)
 			if (event.key.code == sf::Keyboard::Space)
-				addComponent("new", "LFO");
+			{
+				componentTypeBox = new OptionBox(s->getComponentTypesList());
+				std::string type = componentTypeBox->get();//blocking
+				addComponent(type, type);
+
+			}
 	}
 	for (auto c : components)
 		(c.second)->update();

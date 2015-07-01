@@ -2,6 +2,7 @@
 #include "bass.h"
 #include "ComponentView.h"
 #include "LinkView.h"
+#include "OptionBox.h"
 #include <thread>
 class SynthView 
 {
@@ -31,5 +32,6 @@ public:
 	void audioUpdate();
 
 	void playNoteDuration(Note note, float seconds);
+	OptionBox* componentTypeBox;
 };
 
