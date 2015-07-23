@@ -82,3 +82,11 @@ void ComponentView::print()
 		std::cout << "     -" << (p.second)->name << "\n";
 	}
 }
+
+bool ComponentView::pointInside(int px, int py)
+{
+	if (px > x && px < x + w)
+		if (py > y && py < y + h)
+			return 1;
+	return 0;
+}

@@ -22,6 +22,8 @@ OptionBox::OptionBox(std::vector<std::string> list) : options(list)
 
 OptionBox::~OptionBox()
 {
+	for (auto c : optionText)
+		delete c;
 }
 
 std::string OptionBox::get()

@@ -8,7 +8,7 @@
 int main(int argc, _TCHAR* argv[])
 {
 	SynthView sv;
-	sv.loadPatch("skies.patch");
+	//sv.loadPatch("skies.patch");
 	//sv.addComponent("name", "LFO");
 	sv.print();
 

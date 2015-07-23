@@ -5,7 +5,7 @@ class OptionBox
 {
 	sf::RenderWindow window;
 	std::vector<std::string> options;
-	void (*callback)(std::string);
+	
 	const int width = 128;
 	const int buttonHeight = 32;
 	int height;

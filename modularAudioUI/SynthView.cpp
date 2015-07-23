@@ -53,6 +53,17 @@ void SynthView::addAudioLinkView(std::string from, std::string to)
 	links.push_back(new LinkView(&window, components.at(from), components.at(to)));
 }
 
+ComponentView* SynthView::getComponentAtPosition(int x, int y)
+{
+	ComponentView* cv = nullptr;
+	for (auto c : components)
+	{
+		if ((c.second)->pointInside(x, y))
+			cv = c.second;
+	}
+	return cv;
+}
+
 bool SynthView::loadPatch(std::string fname)
 {
 #ifdef AUDIO
@@ -101,6 +112,7 @@ void SynthView::addAudioLink(std::string from, std::string to)
 void SynthView::update()
 {
 	//audioUpdate();
+	nextState = state;
 	window.clear();
 	sf::Event event;
 	while (window.pollEvent(event))
@@ -108,13 +120,46 @@ void SynthView::update()
 		for (auto c : components)
 			(c.second)->onEvent(&event);
 		if (event.type == sf::Event::KeyPressed)
+		{
 			if (event.key.code == sf::Keyboard::Space)
 			{
 				componentTypeBox = new OptionBox(s->getComponentTypesList());
 				std::string type = componentTypeBox->get();//blocking
 				addComponent(type, type);
-
 			}
+			if (event.key.code == sf::Keyboard::L)
+				nextState = STATE_AUDIO_SELECT_FIRST;
+		}
+		if (event.type == sf::Event::MouseButtonPressed)
+		{
+			if (state == STATE_AUDIO_SELECT_FIRST)
+			{
+				//find which component was clicked
+				lastSelectedComponent = getComponentAtPosition(event.mouseButton.x, event.mouseButton.y);
+				if (lastSelectedComponent)
+					nextState = STATE_AUDIO_SELECT_SECOND;
+				else
+					nextState = STATE_DEFAULT;
+			}
+			if (state == STATE_AUDIO_SELECT_SECOND)
+			{
+				//find which component was clicked
+				ComponentView* cv = getComponentAtPosition(event.mouseButton.x, event.mouseButton.y);
+				if (cv)
+				{
+					if (cv != lastSelectedComponent)
+					{
+						//two different components selected
+						addAudioLink(lastSelectedComponent->name, cv->name);
+						nextState = STATE_DEFAULT;
+					}
+					else
+						nextState = STATE_AUDIO_SELECT_SECOND; //same component twice
+				}
+				else
+					nextState = STATE_DEFAULT;
+			}
+		}
 	}
 	for (auto c : components)
 		(c.second)->update();
@@ -122,6 +167,7 @@ void SynthView::update()
 		c->update();
 	
 	window.display();
+	state = nextState;
 }
 
 void SynthView::print()

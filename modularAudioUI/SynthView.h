@@ -16,21 +16,25 @@ class SynthView
 
 	void addComponentView(std::string name);
 	void addAudioLinkView(std::string from, std::string to);
+	ComponentView* getComponentAtPosition(int x, int y);
+	ComponentView* lastSelectedComponent = nullptr;
 public:
 	SynthView();
 	~SynthView();
 	bool loadPatch(std::string fname);
 	void addComponent(std::string name, std::string type);
 	void addAudioLink(std::string from, std::string to);
+	
 	sf::RenderWindow window;
-	/*sf::Sprite sprite;
-	sf::Texture texture;
-	sf::Image image;*/
-
+	
+	enum State
+	{
+		STATE_DEFAULT, STATE_AUDIO_SELECT_FIRST, STATE_AUDIO_SELECT_SECOND
+	} state, nextState;
 	void update();
 	void print();
 	void audioUpdate();
-
+	
 	void playNoteDuration(Note note, float seconds);
 	OptionBox* componentTypeBox;
 };

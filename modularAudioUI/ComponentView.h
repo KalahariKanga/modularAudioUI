@@ -22,7 +22,7 @@ public:
 	void onEvent(sf::Event* e);
 	void update();
 	void print();
-
+	bool pointInside(int x, int y);
 
 	sf::RectangleShape* rectangle;
 	sf::Text* nameText;
