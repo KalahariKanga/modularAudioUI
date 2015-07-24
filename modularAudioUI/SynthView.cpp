@@ -39,7 +39,7 @@ SynthView::~SynthView()
 void SynthView::addComponentView(std::string name)
 {
 	components[name] = new ComponentView(name, &window);
-
+	components[name]->s = s;
 	//populate parameters
 #ifdef AUDIO
 	auto list = s->getComponent(name)->getParameterList();

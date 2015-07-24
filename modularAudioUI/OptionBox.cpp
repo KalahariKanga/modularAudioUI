@@ -32,7 +32,7 @@ std::string OptionBox::get()
 	std::string result = "";
 	while (!quit)
 	{
-		window.clear();
+		//window.clear();
 		for (auto c : optionText)
 			window.draw(*c);
 		window.display();

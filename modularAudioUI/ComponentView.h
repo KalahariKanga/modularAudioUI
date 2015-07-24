@@ -8,12 +8,12 @@ class ComponentView
 	int w, h;
 	int mousexoffset = 0, mouseyoffset = 0;
 	bool clicked = 0;
-
+	
 public:
 
 	ComponentView(std::string name, sf::RenderWindow* w);
 	~ComponentView();
-	
+	Synth* s;
 	int x, y;
 
 	std::string name;

@@ -18,6 +18,7 @@ class SynthView
 	void addAudioLinkView(std::string from, std::string to);
 	ComponentView* getComponentAtPosition(int x, int y);
 	ComponentView* lastSelectedComponent = nullptr;
+
 public:
 	SynthView();
 	~SynthView();

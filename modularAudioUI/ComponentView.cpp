@@ -17,6 +17,8 @@ ComponentView::ComponentView(std::string Name, sf::RenderWindow* win) : name(Nam
 	rectangle = new sf::RectangleShape();
 	rectangle->setOutlineColor(sf::Color::Red);
 	rectangle->setOutlineThickness(1);
+	rectangle->setFillColor(sf::Color::Black);
+	
 }
 
 
@@ -30,7 +32,10 @@ ComponentView::~ComponentView()
 
 void ComponentView::addParameter(std::string name)
 {
-	parameters[name] = new ParameterView(name);
+	parameters[name] = new ParameterView(name,window);
+	parameters[name]->pos = parameters.size() - 1;
+	parameters[name]->s = s;
+	parameters[name]->componentName = this->name;
 }
 
 void ComponentView::onEvent(sf::Event* ev)
@@ -64,6 +69,8 @@ void ComponentView::onEvent(sf::Event* ev)
 
 void ComponentView::update()
 {
+	
+
 	rectangle->setSize(sf::Vector2f(w, h));
 	rectangle->setPosition(x, y);
 
@@ -72,6 +79,14 @@ void ComponentView::update()
 	
 	window->draw(*rectangle);
 	window->draw(*nameText);
+	
+	for (auto p : parameters)
+	{
+		ParameterView* pv = p.second;
+		pv->x = x + pv->xoffset;
+		pv->y = y + pv->yoffset;
+		pv->update();
+	}
 }
 
 void ComponentView::print()
