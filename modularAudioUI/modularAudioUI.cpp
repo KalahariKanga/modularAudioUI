@@ -12,11 +12,15 @@ int main(int argc, _TCHAR* argv[])
 	//sv.addComponent("name", "LFO");
 	sv.print();
 
+	int t = 0;
 	while (1)
 	{
+		t++;
 		sv.update();
-		if (rand() % 100 == 0)
-			sv.playNoteDuration(Note(c3, 100), 1);
+		if (t % 1000 == 0)
+			sv.noteDown(Note(c3, 100));
+		if (t % 1000 == 500)
+			sv.noteUp(Note(c3, 100));
 	}
 
 	

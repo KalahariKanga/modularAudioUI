@@ -80,13 +80,13 @@ void ComponentView::update()
 	window->draw(*rectangle);
 	window->draw(*nameText);
 	
-	for (auto p : parameters)
+	/*for (auto p : parameters)
 	{
 		ParameterView* pv = p.second;
 		pv->x = x + pv->xoffset;
 		pv->y = y + pv->yoffset;
 		pv->update();
-	}
+	}*/
 }
 
 void ComponentView::print()

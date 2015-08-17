@@ -3,7 +3,7 @@
 
 class ComponentView 
 {
-	std::map<std::string, ParameterView*> parameters;
+	
 	sf::RenderWindow* window;
 	int w, h;
 	int mousexoffset = 0, mouseyoffset = 0;
@@ -18,7 +18,7 @@ public:
 
 	std::string name;
 	void addParameter(std::string name);
-
+	std::map<std::string, ParameterView*> parameters;
 	void onEvent(sf::Event* e);
 	void update();
 	void print();

@@ -3,6 +3,7 @@
 #include "ComponentView.h"
 #include "LinkView.h"
 #include "OptionBox.h"
+#include "SidePanel.h"
 #include <thread>
 class SynthView 
 {
@@ -18,7 +19,9 @@ class SynthView
 	void addAudioLinkView(std::string from, std::string to);
 	ComponentView* getComponentAtPosition(int x, int y);
 	ComponentView* lastSelectedComponent = nullptr;
+	ComponentView* activeComponent = nullptr;
 
+	SidePanel sidepanel;
 public:
 	SynthView();
 	~SynthView();
@@ -33,10 +36,14 @@ public:
 		STATE_DEFAULT, STATE_AUDIO_SELECT_FIRST, STATE_AUDIO_SELECT_SECOND
 	} state, nextState;
 	void update();
+
+	
 	void print();
 	void audioUpdate();
 	
 	void playNoteDuration(Note note, float seconds);
+	void noteDown(Note note);
+	void noteUp(Note note);
 	OptionBox* componentTypeBox;
 };
 

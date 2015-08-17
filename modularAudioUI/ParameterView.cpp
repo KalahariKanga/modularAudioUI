@@ -8,12 +8,12 @@ ParameterView::ParameterView(std::string Name, sf::RenderWindow* win) : name(Nam
 	nameText = new sf::Text();
 	nameText->setFont(font);
 	nameText->setColor(sf::Color::Green);
-	nameText->setCharacterSize(8);
+	nameText->setCharacterSize(16);
 
 	rect = new sf::RectangleShape();
 	
-	w = 48;
-	h = 8;
+	w = 128;
+	h = 32;
 	xoffset = 4;
 	
 }
@@ -27,6 +27,8 @@ ParameterView::~ParameterView()
 void ParameterView::setParameter(float value)
 {
 	s->setParameter(componentName, name, value);
+	std::cout << "set " << name << " to " << value << "\n";
+	std::cout << name << " is " << s->getParameter(componentName, name) << "\n";
 }
 
 void ParameterView::onEvent(sf::Event* ev)

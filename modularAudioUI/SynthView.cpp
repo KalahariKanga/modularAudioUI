@@ -19,7 +19,9 @@ SynthView::SynthView()
 	audioThread = new std::thread(&SynthView::audioUpdate, this);
 #endif
 
-	
+	addComponentView("output");
+
+	state = STATE_DEFAULT;
 }
 
 
@@ -132,6 +134,10 @@ void SynthView::update()
 		}
 		if (event.type == sf::Event::MouseButtonPressed)
 		{
+			if (state == STATE_DEFAULT)
+			{
+				activeComponent = getComponentAtPosition(event.mouseButton.x, event.mouseButton.y);
+			}
 			if (state == STATE_AUDIO_SELECT_FIRST)
 			{
 				//find which component was clicked
@@ -161,11 +167,14 @@ void SynthView::update()
 			}
 		}
 	}
+
 	for (auto c : components)
 		(c.second)->update();
 	for (auto c : links)
 		c->update();
-	
+
+	sidepanel.update(activeComponent);
+
 	window.display();
 	state = nextState;
 }
@@ -197,4 +206,14 @@ void SynthView::playNoteDuration(Note note, float seconds)
 #ifdef AUDIO
 	s->playNoteDuration(note, seconds);
 #endif
+}
+
+void SynthView::noteDown(Note note)
+{
+	s->noteDown(note);
+}
+
+void SynthView::noteUp(Note note)
+{
+	s->noteUp(note);
 }
