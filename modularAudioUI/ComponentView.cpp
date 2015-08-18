@@ -40,11 +40,6 @@ void ComponentView::addParameter(std::string name)
 
 void ComponentView::onEvent(sf::Event* ev)
 {
-	for (auto p : parameters)
-	{
-		(p.second)->onEvent(ev);
-	}
-
 	if (ev->type == sf::Event::MouseButtonPressed)
 	{
 		if (ev->mouseButton.x > x && ev->mouseButton.x < x + w)

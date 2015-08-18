@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <tchar.h>
 
+#define NOMINMAX
+
 
 
 // TODO: reference additional headers your program requires here

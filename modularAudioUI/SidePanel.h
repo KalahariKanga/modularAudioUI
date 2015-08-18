@@ -4,10 +4,15 @@
 
 class SidePanel
 {
+	sf::RenderWindow* window;
+	ComponentView* component;
 public:
-	SidePanel();
+	SidePanel(sf::RenderWindow* window);
 	~SidePanel();
 
-	void update(ComponentView* component);
+	void setFocusedComponent(ComponentView* cv);
+	void update();
+	void onEvent(sf::Event ev);
+	sf::Rect<int> rectangle;
 };
 
